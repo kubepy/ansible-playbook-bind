@@ -1,0 +1,32 @@
+---
+# vars file for dns-server-bind
+_dns_packages:
+  default:
+    - bind
+
+dns_packages: "{{ _dns_packages[ansible_distribution] | default(_dns_packages['default']) }}"
+
+_dns_datadir:
+  default: /var/named
+
+dns_datadir: "{{ _dns_datadir[ansible_distribution] | default(_dns_datadir['default']) }}"
+
+_dns_confdir:
+  default: /etc
+
+dns_confdir: "{{ _dns_confdir[ansible_distribution] | default(_dns_confdir['default']) }}"
+
+_dns_group:
+  default: named
+
+dns_group: "{{ _dns_group[ansible_distribution] | default(_dns_group['default']) }}"
+
+_dns_owner:
+  default: named
+
+dns_owner: "{{ _dns_owner[ansible_distribution] | default(_dns_owner['default']) }}"
+
+_dns_service:
+  default: named
+
+dns_service: "{{ _dns_service[ansible_distribution] | default(_dns_service['default']) }}"

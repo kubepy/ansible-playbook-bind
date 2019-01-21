@@ -1,0 +1,7 @@
+---
+# handlers file for dns-server-bind
+- name: reload zones
+  command: rndc reload
+
+- name: reload configuration
+  command: rndc reload

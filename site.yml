@@ -1,0 +1,8 @@
+---
+
+- name: setup dns server(bind9)
+  hosts: all
+  gather_facts: true
+  become: true
+  roles:
+    - dns-server-bind

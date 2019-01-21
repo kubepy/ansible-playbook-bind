@@ -1,0 +1,33 @@
+{{ ansible_managed | comment }}
+options {
+  directory "{{ dns_datadir }}";
+{% if dns_forwarders is undefined %}
+  recursion no;
+{% else %}
+  recursion yes;
+  forwarders {
+{% for record in dns_forwarders %}
+    {{ record }};
+{% endfor %}  };
+{% endif %}
+  dnssec-validation no;
+  dnssec-enable no;
+  auth-nxdomain no;
+  listen-on { any; };
+  listen-on-v6 { any; };
+  allow-query { any; };
+};
+
+{% for zone in dns_zones %}
+zone "{{ zone.name }}" {
+  type master;
+  file "{{ dns_datadir }}/{{ zone.name }}.conf";
+};
+{% endfor %}
+
+include "{{ dns_confdir }}/rndc.key";
+
+controls {
+  inet 127.0.0.1 port 953
+  allow { 127.0.0.1; } keys { "rndc-key"; };
+};

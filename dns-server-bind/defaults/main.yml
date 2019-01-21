@@ -1,0 +1,55 @@
+---
+# defaults file for dns-server-bind
+
+# A list of dns forwarders(if not please comment these)
+dns_forwarders:
+  - 192.168.254.1
+  - 192.186.254.2
+
+# A list of zones and properties per zone.
+dns_zones:
+  - name: ocp.example.com
+    soa: localhost
+    serial: 1
+    refresh: 604800
+    rety: 86400
+    expire: 2419200
+    ttl: 604800
+    ns:
+      - name: dns
+    records:
+      - name: dns
+        value: 127.0.0.1
+      - name: www
+        value: 192.168.224.11
+      - name: www
+        value: 192.168.224.12
+      - name: www
+        value: 192.168.224.13
+      - name: '*.apps'
+        value: 192.168.224.21
+      - name: '*.apps'
+        value: 192.168.224.22
+      - name: '*.apps'
+        value: 192.168.224.23
+      - name: master01
+        value: 192.168.224.11
+      - name: master02
+        value: 192.168.224.12
+      - name: master03
+        value: 192.168.224.13
+      - name: infra01
+        value: 192.168.224.21
+      - name: infra02
+        value: 192.168.224.22
+      - name: infra03
+        value: 192.168.224.23
+      - name: node01
+        value: 192.168.224.31
+      - name: node02
+        value: 192.168.224.32
+      - name: node03
+        value: 192.168.224.33
+
+# To update all packages installed by this roles, set `dns_package_state` to `latest`.
+dns_package_state: present
